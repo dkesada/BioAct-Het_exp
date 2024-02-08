@@ -1,5 +1,13 @@
 ❗ This is an experimental, modified version of BioAct-Het. The idea is that in order to have a working version of this model, one needs to be able to input a SMILES code to the model and obtain a prediction of the 12 categories of TOX21 to evaluate if the compound is toxic or not. In this repo, I'll train a BioAct-Het model and then I'll save it into a '.h5' file. Afterwards, I'll encapsulate model training and prediction into a class. This way, the model can be used to predict toxicity in a real-world scenario, where any SMILES code can be evaluated. I'll just focus on the TOX21 model in the first half of the '(Tox21) Association_based_strategy.ipynb' jupyter notebook. The repo is prepared so that one can run the scripts from the root folder, without using '__init__.py' to convert it into a package structure, and so many of the original notebooks and files will most likely be deleted for clarity.
 
+Instead of jupyter notebooks I'll use regular scripts, because they are much easier to reuse. For now, the commands used to generate the dataset and train the model should be:
+```
+python ./tox_21_data_pickle.py
+python ./tox_21_model_pickle.py
+python ./tox_21_model_prediction.py
+```
+Beware that depending on your machine specs, training and saving the model can be very time consuming.
+
 # BioAct-Het: Heterogeneous siamese neural network for bioactivity prediction using novel bioactivity representation 
 ![Graphical abstract](https://github.com/ph-mehdi/BioAct-Het/blob/main/Figures/4-Graphical%20abstract.png)
 
