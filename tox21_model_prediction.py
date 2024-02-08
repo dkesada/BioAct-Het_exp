@@ -28,7 +28,7 @@ import pickle
 #################################################################################################
 # This file encapsulates the prediction of a dataset with the 'data_ds.pkl' format using 
 # the previously trained '.h5' siamese neural network.
-# Running it will generate a 2.07Gb file with the needed data to train the tensorflow model.
+# Running it will generate predictions for each of the 12 properties of TOX21 for two compounds
 # The code used was adapted from the '(Tox21) Association_based_strategy.ipynb' notebook
 #################################################################################################
 
@@ -42,11 +42,13 @@ with open("subset_ds.pkl", 'rb') as inp:
 
 from tensorflow.keras.models import load_model
 
-# Load the previously saved tox21 model
+# Load the previously saved tox21 model and embbeded tasks
 model = load_model('tox21.h5')
+with open("embbed_task_dict.pkl", 'rb') as inp:
+	embbed_task_dict = pickle.load(inp) 
 
 
-def predict_siamese(pred_ds, model):
+def predict_siamese(pred_ds, model, embbed_task_dict):
 	
 	l_pred = []
 	r_pred = []
@@ -63,10 +65,22 @@ def predict_siamese(pred_ds, model):
 	l_pred = np.array(l_pred).reshape(-1,512,1)
 	r_pred = np.array(r_pred).reshape(-1,512,1)
 	lbls_pred = np.array(lbls_pred) # This are the labels, which should not be a thing in real time predictions...
-	print(lbls_pred)
+	preds = predict_tox21_tasks(l_pred, model, embbed_task_dict)
 	
-	return model.predict([l_pred,r_pred])
+	return preds
 	
-results = predict_siamese([subset_ds[0]], model)
-print(results)
-print(results)
+def predict_tox21_tasks(l_pred, model, embbed_task_dict):
+	res = []
+	for i in embbed_task_dict.keys():
+		r_pred = np.array(embbed_task_dict[i]).reshape(-1,512,1)
+		pred = model.predict([l_pred, r_pred], verbose=0)[0][0]
+		print(f'Results for {i}: {pred}')
+		res.append(pred)
+		
+	return res
+	
+
+print('First compound:')
+res = predict_siamese([subset_ds[0]], model, embbed_task_dict)
+print('Second compound:')
+res = predict_siamese([subset_ds[1]], model, embbed_task_dict)
