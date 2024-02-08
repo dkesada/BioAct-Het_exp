@@ -25,6 +25,13 @@ from gcn_pre_trained import get_tox21_model
 from heterogeneous_siamese_tox21 import siamese_model_attentiveFp_tox21, siamese_model_Canonical_tox21
 import pickle
 
+#################################################################################################
+# This file encapsulates the prediction of a dataset with the 'data_ds.pkl' format using 
+# the previously trained '.h5' siamese neural network.
+# Running it will generate a 2.07Gb file with the needed data to train the tensorflow model.
+# The code used was adapted from the '(Tox21) Association_based_strategy.ipynb' notebook
+#################################################################################################
+
 #with open("data_ds.pkl", 'rb') as inp:
 #    data_ds = pickle.load(inp)  # Change this to loading the subset directly so that it does not take 4000 years each time
 #subset_ds = data_ds[0:10]
@@ -60,6 +67,6 @@ def predict_siamese(pred_ds, model):
 	
 	return model.predict([l_pred,r_pred])
 	
-results = predict_siamese(subset_ds, model)
+results = predict_siamese([subset_ds[0]], model)
 print(results)
 print(results)

@@ -25,6 +25,12 @@ from gcn_pre_trained import get_tox21_model
 from heterogeneous_siamese_tox21 import siamese_model_attentiveFp_tox21, siamese_model_Canonical_tox21
 import pickle
 
+#################################################################################################
+# This file encapsulates the creation of the '.h5' file of the trained siamese neural network model.
+# Running it will generate a 9.98Mb file with the tensorflow.keras model.
+# The code used was adapted from the '(Tox21) Association_based_strategy.ipynb' notebook
+#################################################################################################
+
 with open("data_ds.pkl", 'rb') as inp:
     data_ds = pickle.load(inp)
 	

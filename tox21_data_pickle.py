@@ -25,6 +25,12 @@ from gcn_pre_trained import get_tox21_model
 from heterogeneous_siamese_tox21 import siamese_model_attentiveFp_tox21, siamese_model_Canonical_tox21
 import pickle
 
+#################################################################################################
+# This file encapsulates the creation of the dataset to train the siamese neural network model.
+# Running it will generate a 2.07Gb file with the needed data to train the tensorflow model.
+# The code used was adapted from the '(Tox21) Association_based_strategy.ipynb' notebook
+#################################################################################################
+
 cache_path='./tox21_dglgraph.bin'
 
 df = get_dataset("tox21")
