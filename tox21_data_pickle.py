@@ -99,3 +99,5 @@ for i, task in  enumerate(tox21_tasks):
 		
 with open("data_ds.pkl", 'wb') as out:
     pickle.dump(data_ds, out, pickle.HIGHEST_PROTOCOL)
+with open("gcn_model.pkl", 'wb') as out:
+    pickle.dump(gcn_model, out, pickle.HIGHEST_PROTOCOL)

@@ -44,9 +44,10 @@ from tensorflow.keras.models import load_model
 
 # Load the previously saved tox21 model and embbeded tasks
 model = load_model('tox21.h5')
-with open("embbed_task_dict.pkl", 'rb') as inp:
+with open("embed_task_dict.pkl", 'rb') as inp:
 	embbed_task_dict = pickle.load(inp) 
 
+model.save('tox21.keras')
 
 def predict_siamese(pred_ds, model, embbed_task_dict):
 	
